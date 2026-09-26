@@ -5,48 +5,769 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<title>M Downloader</title>
+
+<title>MJ Downloader</title>
+
 <style>
-*{box-sizing:border-box} body{margin:0;background:#060914;color:#fff;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display",Arial,sans-serif}
-.app{min-height:100vh;padding:52px 18px 30px;background:radial-gradient(circle at 80% 5%,#263c9a55,transparent 35%),radial-gradient(circle at 15% 35%,#7a28c044,transparent 30%),#060914}
-.header{display:flex;justify-content:space-between;align-items:center}.brand{font-size:31px;font-weight:800}.brand span{background:linear-gradient(90deg,#40d9ff,#7c5cff);-webkit-background-clip:text;color:transparent}
-.sub{color:#8e96aa;margin-top:5px;font-size:14px}.gear{width:44px;height:44px;border:1px solid #ffffff18;border-radius:15px;background:#ffffff09;color:white;font-size:21px}
-.card{margin-top:28px;padding:18px;border:1px solid #ffffff14;border-radius:24px;background:#ffffff09;backdrop-filter:blur(18px);box-shadow:0 18px 50px #0007}
-.label{font-size:13px;color:#9da6bc;margin-bottom:10px}.input{display:flex;gap:10px;align-items:center;padding:15px;border-radius:17px;background:#0007;border:1px solid #ffffff12}.input input{flex:1;background:none;border:0;outline:0;color:white;font-size:15px}.input button{background:none;border:0;color:#8f98ac;font-size:18px}
-.download{width:100%;border:0;margin-top:15px;padding:16px;border-radius:17px;color:white;font-size:16px;font-weight:700;background:linear-gradient(100deg,#147cff,#744cff);box-shadow:0 12px 30px #345cff55}
-.row{display:flex;gap:12px;margin-top:16px}.mini{flex:1;padding:17px;border:1px solid #ffffff12;border-radius:20px;background:#ffffff08}.icon{font-size:25px}.mini b{display:block;margin-top:9px}.mini small{color:#8992a8}
-.section{margin-top:27px;font-size:17px;font-weight:700}.apps{display:flex;justify-content:space-between;margin-top:14px}.appicon{text-align:center;color:#aeb6c9;font-size:12px}.bubble{width:52px;height:52px;border-radius:16px;background:#ffffff0b;border:1px solid #ffffff12;display:grid;place-items:center;font-size:22px;margin-bottom:6px}
-.status{display:none;margin-top:18px;padding:15px;border-radius:17px;background:#19b66b18;border:1px solid #19b66b44;color:#75e8ad}
-.nav{position:fixed;bottom:0;left:0;right:0;padding:12px 20px calc(12px + env(safe-area-inset-bottom));background:#080b16dd;backdrop-filter:blur(20px);display:flex;justify-content:space-around;border-top:1px solid #ffffff12}.nav button{background:none;border:0;color:#7f889d;font-size:12px}.nav button.active{color:#55cfff}
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  background:#060914;
+  color:#fff;
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display",Arial,sans-serif;
+}
+
+button,input{font:inherit}
+
+.app{
+  min-height:100vh;
+  padding:52px 18px 100px;
+  background:
+    radial-gradient(circle at 80% 5%,#263c9a55,transparent 35%),
+    radial-gradient(circle at 15% 35%,#7a28c044,transparent 30%),
+    #060914;
+}
+
+.header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.brand{
+  font-size:31px;
+  font-weight:800;
+}
+
+.brand span{
+  background:linear-gradient(90deg,#40d9ff,#7c5cff);
+  -webkit-background-clip:text;
+  color:transparent;
+}
+
+.sub{
+  color:#8e96aa;
+  margin-top:5px;
+  font-size:14px;
+}
+
+.gear{
+  width:44px;
+  height:44px;
+  border:1px solid #ffffff18;
+  border-radius:15px;
+  background:#ffffff09;
+  color:white;
+  font-size:21px;
+}
+
+.card{
+  margin-top:28px;
+  padding:18px;
+  border:1px solid #ffffff14;
+  border-radius:24px;
+  background:#ffffff09;
+  backdrop-filter:blur(18px);
+  box-shadow:0 18px 50px #0007;
+}
+
+.label{
+  font-size:13px;
+  color:#9da6bc;
+  margin-bottom:10px;
+}
+
+.input{
+  display:flex;
+  gap:10px;
+  align-items:center;
+  padding:15px;
+  border-radius:17px;
+  background:#0007;
+  border:1px solid #ffffff12;
+}
+
+.input input{
+  flex:1;
+  min-width:0;
+  background:none;
+  border:0;
+  outline:0;
+  color:white;
+  font-size:15px;
+}
+
+.input input::placeholder{
+  color:#687186;
+}
+
+.input button{
+  background:none;
+  border:0;
+  color:#8f98ac;
+  font-size:20px;
+}
+
+.download{
+  width:100%;
+  border:0;
+  margin-top:15px;
+  padding:16px;
+  border-radius:17px;
+  color:white;
+  font-size:16px;
+  font-weight:700;
+  background:linear-gradient(100deg,#147cff,#744cff);
+  box-shadow:0 12px 30px #345cff55;
+}
+
+.download:active{
+  transform:scale(.98);
+}
+
+.status{
+  display:none;
+  margin-top:15px;
+  padding:14px;
+  border-radius:16px;
+  background:#19b66b18;
+  border:1px solid #19b66b44;
+  color:#75e8ad;
+  font-size:13px;
+  line-height:1.6;
+}
+
+.preview{
+  display:none;
+  margin-top:15px;
+  overflow:hidden;
+  border-radius:18px;
+  border:1px solid #ffffff12;
+  background:#0006;
+}
+
+.preview img,
+.preview video{
+  width:100%;
+  display:block;
+  max-height:300px;
+  object-fit:cover;
+}
+
+.previewInfo{
+  padding:13px;
+  color:#b8c0d2;
+  font-size:13px;
+}
+
+.row{
+  display:flex;
+  gap:12px;
+  margin-top:16px;
+}
+
+.mini{
+  flex:1;
+  padding:17px;
+  border:1px solid #ffffff12;
+  border-radius:20px;
+  background:#ffffff08;
+}
+
+.icon{
+  font-size:25px;
+}
+
+.mini b{
+  display:block;
+  margin-top:9px;
+}
+
+.mini small{
+  color:#8992a8;
+}
+
+.section{
+  margin-top:27px;
+  font-size:17px;
+  font-weight:700;
+}
+
+.apps{
+  display:flex;
+  justify-content:space-between;
+  margin-top:14px;
+}
+
+.appicon{
+  text-align:center;
+  color:#aeb6c9;
+  font-size:12px;
+}
+
+.bubble{
+  width:52px;
+  height:52px;
+  border-radius:16px;
+  background:#ffffff0b;
+  border:1px solid #ffffff12;
+  display:grid;
+  place-items:center;
+  font-size:22px;
+  margin-bottom:6px;
+}
+
+.downloads{
+  display:none;
+}
+
+.downloadItem{
+  margin-top:12px;
+  padding:15px;
+  border-radius:18px;
+  background:#ffffff08;
+  border:1px solid #ffffff12;
+}
+
+.downloadItem b{
+  display:block;
+}
+
+.downloadItem small{
+  color:#8992a8;
+}
+
+.empty{
+  margin-top:18px;
+  padding:35px 15px;
+  text-align:center;
+  color:#737d93;
+  border:1px dashed #ffffff18;
+  border-radius:20px;
+}
+
+.settings{
+  display:none;
+}
+
+.settingItem{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:17px 0;
+  border-bottom:1px solid #ffffff0d;
+}
+
+.settingItem:last-child{
+  border-bottom:0;
+}
+
+.settingText b{
+  display:block;
+  font-size:15px;
+}
+
+.settingText small{
+  display:block;
+  margin-top:5px;
+  color:#7f899e;
+}
+
+.toggle{
+  width:48px;
+  height:28px;
+  border:0;
+  border-radius:20px;
+  background:#30384b;
+  position:relative;
+}
+
+.toggle:after{
+  content:"";
+  position:absolute;
+  width:22px;
+  height:22px;
+  top:3px;
+  left:3px;
+  background:white;
+  border-radius:50%;
+  transition:.2s;
+}
+
+.toggle.on{
+  background:#3d8cff;
+}
+
+.toggle.on:after{
+  left:23px;
+}
+
+.nav{
+  position:fixed;
+  bottom:0;
+  left:0;
+  right:0;
+  z-index:10;
+  padding:12px 20px calc(12px + env(safe-area-inset-bottom));
+  background:#080b16dd;
+  backdrop-filter:blur(20px);
+  display:flex;
+  justify-content:space-around;
+  border-top:1px solid #ffffff12;
+}
+
+.nav button{
+  background:none;
+  border:0;
+  color:#7f889d;
+  font-size:12px;
+  line-height:1.5;
+}
+
+.nav button.active{
+  color:#55cfff;
+}
+
+.page{
+  display:none;
+}
+
+.page.active{
+  display:block;
+}
+
+.toast{
+  position:fixed;
+  left:18px;
+  right:18px;
+  bottom:90px;
+  padding:14px;
+  border-radius:15px;
+  background:#151b2b;
+  border:1px solid #ffffff15;
+  color:white;
+  text-align:center;
+  opacity:0;
+  transform:translateY(15px);
+  pointer-events:none;
+  transition:.25s;
+  z-index:20;
+}
+
+.toast.show{
+  opacity:1;
+  transform:translateY(0);
+}
 </style>
 </head>
+
 <body>
+
 <div class="app">
-  <div class="header"><div><div class="brand"><span>M</span> Downloader</div><div class="sub">Save your favorite moments</div></div><button class="gear">⚙︎</button></div>
 
-  <div class="card">
-    <div class="label">MEDIA LINK</div>
-    <div class="input"><span>🔗</span><input id="link" placeholder="Paste link here…"><button onclick="clearLink()">×</button></div>
-    <button class="download" onclick="preview()">↓ &nbsp; Download</button>
-    <div id="status" class="status">✓ Link آماده‌یه بۆ preview. دەتوانین media ـی ڕێگەپێدراو دابگریین.</div>
+<!-- HOME -->
+<div id="homePage" class="page active">
+
+<div class="header">
+  <div>
+    <div class="brand"><span>MJ</span> Downloader</div>
+    <div class="sub">Save your favorite moments</div>
   </div>
 
-  <div class="row">
-    <div class="mini"><div class="icon">🎥</div><b>Video</b><small>High quality</small></div>
-    <div class="mini"><div class="icon">🖼️</div><b>Image</b><small>High quality</small></div>
+  <button class="gear" onclick="showPage('settings')">⚙︎</button>
+</div>
+
+<div class="card">
+
+  <div class="label">MEDIA LINK</div>
+
+  <div class="input">
+    <span>🔗</span>
+    <input id="link" type="url" placeholder="Paste link here…" autocomplete="off">
+    <button onclick="clearLink()">×</button>
   </div>
 
-  <div class="section">Popular Apps</div>
-  <div class="apps">
-    <div class="appicon"><div class="bubble">◎</div>Instagram</div>
-    <div class="appicon"><div class="bubble">♪</div>TikTok</div>
-    <div class="appicon"><div class="bubble">▶</div>YouTube</div>
-    <div class="appicon"><div class="bubble">f</div>Facebook</div>
+  <button class="download" onclick="previewLink()">
+    ↓ &nbsp; Preview
+  </button>
+
+  <div id="status" class="status"></div>
+
+  <div id="preview" class="preview">
+    <div class="previewInfo">
+      🔗 Media link ready
+    </div>
+  </div>
+
+</div>
+
+<div class="row">
+
+  <div class="mini">
+    <div class="icon">🎥</div>
+    <b>Video</b>
+    <small>High quality</small>
+  </div>
+
+  <div class="mini">
+    <div class="icon">🖼️</div>
+    <b>Image</b>
+    <small>High quality</small>
+  </div>
+
+</div>
+
+<div class="section">Popular Apps</div>
+
+<div class="apps">
+
+  <div class="appicon">
+    <div class="bubble">◎</div>
+    Instagram
+  </div>
+
+  <div class="appicon">
+    <div class="bubble">♪</div>
+    TikTok
+  </div>
+
+  <div class="appicon">
+    <div class="bubble">▶</div>
+    YouTube
+  </div>
+
+  <div class="appicon">
+    <div class="bubble">f</div>
+    Facebook
+  </div>
+
+</div>
+
+</div>
+
+
+<!-- DOWNLOADS -->
+<div id="downloadsPage" class="page">
+
+<div class="header">
+  <div>
+    <div class="brand"><span>MJ</span> Downloads</div>
+    <div class="sub">Your saved media</div>
   </div>
 </div>
-<div class="nav"><button class="active">⌂<br>Home</button><button>↓<br>Downloads</button><button>⚙<br>Settings</button></div>
+
+<div id="downloadsList">
+
+  <div class="empty">
+    📥<br><br>
+    No downloads yet
+  </div>
+
+</div>
+
+</div>
+
+
+<!-- SETTINGS -->
+<div id="settingsPage" class="page">
+
+<div class="header">
+  <div>
+    <div class="brand"><span>MJ</span> Settings</div>
+    <div class="sub">Customize your downloader</div>
+  </div>
+</div>
+
+<div class="card">
+
+  <div class="settingItem">
+
+    <div class="settingText">
+      <b>Auto Preview</b>
+      <small>Preview links automatically</small>
+    </div>
+
+    <button id="autoPreview" class="toggle on"
+      onclick="toggleSetting(this)">
+    </button>
+
+  </div>
+
+  <div class="settingItem">
+
+    <div class="settingText">
+      <b>Notifications</b>
+      <small>Show download notifications</small>
+    </div>
+
+    <button id="notifications" class="toggle on"
+      onclick="toggleSetting(this)">
+    </button>
+
+  </div>
+
+  <div class="settingItem">
+
+    <div class="settingText">
+      <b>Clear Downloads</b>
+      <small>Remove saved download history</small>
+    </div>
+
+    <button onclick="clearDownloads()"
+      style="background:#ff3b3018;color:#ff6b62;border:1px solid #ff3b3033;padding:9px 13px;border-radius:12px">
+      Clear
+    </button>
+
+  </div>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- NAVIGATION -->
+<div class="nav">
+
+<button id="homeNav" class="active" onclick="showPage('home')">
+⌂<br>Home
+</button>
+
+<button id="downloadsNav" onclick="showPage('downloads')">
+↓<br>Downloads
+</button>
+
+<button id="settingsNav" onclick="showPage('settings')">
+⚙<br>Settings
+</button>
+
+</div>
+
+<div id="toast" class="toast"></div>
+
+
 <script>
-function preview(){const v=document.getElementById('link').value.trim();const s=document.getElementById('status');s.style.display='block';s.textContent=v?'✓ Link آماده‌یه بۆ preview.':'⚠️ تکایە لینکەکە دابنێ.'}
-function clearLink(){document.getElementById('link').value='';document.getElementById('status').style.display='none'}
+
+let downloads =
+JSON.parse(localStorage.getItem("mjDownloads") || "[]");
+
+
+function showPage(page){
+
+  document.querySelectorAll(".page")
+  .forEach(p => p.classList.remove("active"));
+
+  document.querySelectorAll(".nav button")
+  .forEach(b => b.classList.remove("active"));
+
+  if(page === "home"){
+    document.getElementById("homePage").classList.add("active");
+    document.getElementById("homeNav").classList.add("active");
+  }
+
+  if(page === "downloads"){
+    document.getElementById("downloadsPage").classList.add("active");
+    document.getElementById("downloadsNav").classList.add("active");
+    renderDownloads();
+  }
+
+  if(page === "settings"){
+    document.getElementById("settingsPage").classList.add("active");
+    document.getElementById("settingsNav").classList.add("active");
+  }
+
+}
+
+
+function previewLink(){
+
+  const input = document.getElementById("link");
+  const status = document.getElementById("status");
+  const preview = document.getElementById("preview");
+
+  const value = input.value.trim();
+
+  if(!value){
+
+    status.style.display = "block";
+    status.style.background = "#ff453a18";
+    status.style.borderColor = "#ff453a44";
+    status.style.color = "#ff8c86";
+    status.textContent = "⚠️ تکایە لینکەکە دابنێ.";
+
+    preview.style.display = "none";
+
+    return;
+  }
+
+  status.style.display = "block";
+  status.style.background = "#19b66b18";
+  status.style.borderColor = "#19b66b44";
+  status.style.color = "#75e8ad";
+  status.textContent = "✓ Link ئامادەیە بۆ preview.";
+
+  preview.style.display = "block";
+
+  preview.innerHTML = `
+    <div class="previewInfo">
+      <b>🔗 Link detected</b><br><br>
+      ${escapeHTML(value)}
+      <br><br>
+      <button
+        onclick="saveDownload()"
+        style="
+        width:100%;
+        border:0;
+        padding:13px;
+        border-radius:14px;
+        background:linear-gradient(100deg,#147cff,#744cff);
+        color:white;
+        font-weight:700;">
+        ＋ Add to Downloads
+      </button>
+    </div>
+  `;
+
+}
+
+
+function saveDownload(){
+
+  const value = document.getElementById("link").value.trim();
+
+  if(!value) return;
+
+  downloads.unshift({
+    url:value,
+    date:new Date().toLocaleString()
+  });
+
+  localStorage.setItem(
+    "mjDownloads",
+    JSON.stringify(downloads)
+  );
+
+  showToast("✓ Added to Downloads");
+
+  renderDownloads();
+
+}
+
+
+function renderDownloads(){
+
+  const list = document.getElementById("downloadsList");
+
+  if(!downloads.length){
+
+    list.innerHTML = `
+      <div class="empty">
+        📥<br><br>
+        No downloads yet
+      </div>
+    `;
+
+    return;
+  }
+
+  list.innerHTML = downloads.map((item,index)=>`
+
+    <div class="downloadItem">
+
+      <b>📄 Media ${downloads.length-index}</b>
+
+      <small>${escapeHTML(item.url)}</small>
+
+      <br>
+
+      <small>${escapeHTML(item.date)}</small>
+
+    </div>
+
+  `).join("");
+
+}
+
+
+function clearDownloads(){
+
+  downloads = [];
+
+  localStorage.removeItem("mjDownloads");
+
+  renderDownloads();
+
+  showToast("Downloads cleared");
+
+}
+
+
+function clearLink(){
+
+  document.getElementById("link").value = "";
+
+  document.getElementById("status").style.display = "none";
+
+  document.getElementById("preview").style.display = "none";
+
+}
+
+
+function toggleSetting(button){
+
+  button.classList.toggle("on");
+
+}
+
+
+function showToast(message){
+
+  const toast = document.getElementById("toast");
+
+  toast.textContent = message;
+
+  toast.classList.add("show");
+
+  setTimeout(()=>{
+    toast.classList.remove("show");
+  },2200);
+
+}
+
+
+function escapeHTML(text){
+
+  return text
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+
+}
+
+
+document.getElementById("link")
+.addEventListener("paste",function(){
+
+  const auto =
+    document.getElementById("autoPreview");
+
+  if(auto.classList.contains("on")){
+
+    setTimeout(()=>{
+      if(this.value.trim()){
+        previewLink();
+      }
+    },300);
+
+  }
+
+});
+
 </script>
-</body></html>
+
+</body>
+</html>
